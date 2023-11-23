@@ -1,6 +1,6 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { DatepickerViewProps } from './Datepicker.types';
+import { DatepickerViewProps } from "./Datepicker.types";
 
 export default function DatepickerView(props: DatepickerViewProps) {
   return (
