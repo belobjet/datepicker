@@ -1,5 +1,5 @@
 {
-  "name": "objet-datepicker",
+  "name": "@objet/datepicker",
   "version": "0.1.0",
   "description": "Web & iOS simple datepicker",
   "main": "build/index.js",
