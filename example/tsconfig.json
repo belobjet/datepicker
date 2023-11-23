@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "objet-datepicker": ["../src/index"],
+      "objet-datepicker/*": ["../src/*"]
+    }
+  }
+}
