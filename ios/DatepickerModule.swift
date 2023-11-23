@@ -1,44 +1,40 @@
 import ExpoModulesCore
+import SwiftUI
 
 public class DatepickerModule: Module {
-  // Each module class must implement the definition function. The definition consists of components
-  // that describes the module's functionality and behavior.
-  // See https://docs.expo.dev/modules/module-api for more details about available components.
-  public func definition() -> ModuleDefinition {
-    // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
-    // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
-    // The module will be accessible from `requireNativeModule('Datepicker')` in JavaScript.
-    Name("Datepicker")
+    public func definition() -> ModuleDefinition {
+        Name("Datepicker")
 
-    // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
-    Constants([
-      "PI": Double.pi
-    ])
+        View(DatepickerView.self) {
+            Events("onValueChanged")
 
-    // Defines event names that the module can send to JavaScript.
-    Events("onChange")
+            Prop("date") { (view: DatepickerView, prop: String) in
+                let formatter = DateFormatter()
 
-    // Defines a JavaScript synchronous function that runs the native code on the JavaScript thread.
-    Function("hello") {
-      return "Hello world! 👋"
+                // Set the date format to ISO 8601
+                formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+                if let date = formatter.date(from: prop) {
+                    view.model.date = date
+                } else {
+                    debugPrint("Invalid date format: \(prop)")
+                }
+            }
+
+            Prop("backgroundColor") { (view: DatepickerView, prop: UIColor?) in
+                if let prop = prop {
+                    view.model.backgroundColor = Color(prop)
+                } else {
+                    view.model.backgroundColor = .clear
+                }
+            }
+
+            Prop("cornerRadius") { (view: DatepickerView, prop: Double?) in
+                if let prop = prop {
+                    view.model.cornerRadius = prop
+                } else {
+                    view.model.cornerRadius = 0
+                }
+            }
+        }
     }
-
-    // Defines a JavaScript function that always returns a Promise and whose native code
-    // is by default dispatched on the different thread than the JavaScript runtime runs on.
-    AsyncFunction("setValueAsync") { (value: String) in
-      // Send an event to JavaScript.
-      self.sendEvent("onChange", [
-        "value": value
-      ])
-    }
-
-    // Enables the module to be used as a native view. Definition components that are accepted as part of the
-    // view definition: Prop, Events.
-    View(DatepickerView.self) {
-      // Defines a setter for the `name` prop.
-      Prop("name") { (view: DatepickerView, prop: String) in
-        print(prop)
-      }
-    }
-  }
 }

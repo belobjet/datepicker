@@ -28,7 +28,9 @@
   "author": "Maxime Cattet <maximecattet@gmx.com> (https://github.com/johnoppenheimer)",
   "license": "MIT",
   "homepage": "https://github.com/belobjet/datepicker#readme",
-  "dependencies": {},
+  "dependencies": {
+    "react-day-picker": "^8.9.1"
+  },
   "devDependencies": {
     "@types/react": "^18.0.25",
     "expo-module-scripts": "^3.0.11",
