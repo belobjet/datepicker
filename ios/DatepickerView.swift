@@ -25,7 +25,9 @@ public final class DatepickerView: ExpoView {
         self.addSubview(contentView.view)
 
         model.$date.sink { [weak self] date in
-            let formatter = ISO8601DateFormatter()
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+
             self?.onValueChanged([
                 "value": formatter.string(from: date)
             ])
